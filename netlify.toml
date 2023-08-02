@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/*"
+  to = "https://2busymeeting-server.mihaimisai.repl.co/:splat"
+  status = 200
