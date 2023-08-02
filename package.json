@@ -23,6 +23,7 @@
       "react-app/jest"
     ]
   },
+  "proxy": "https://2busymeeting-server.mihaimisai.repl.co",
   "browserslist": {
     "production": [
       ">0.2%",
