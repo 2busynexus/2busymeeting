@@ -2,14 +2,18 @@ import React, {useState} from 'react'
 import JoinButton from './elements/JoinButton'
 import CreateButton from './elements/CreateButton'
 import JoinForm from './elements/JoinForm'
+import ContinueButton from './elements/ContinueButton'
 
 function WelcomeComponent() {
 
     const [joinContainer, setJoinContainer] = useState(false)
+    const [roomId, setRoomId] = useState('')
 
     const handleJoinContainer = () => {
         setJoinContainer(!joinContainer)
     }
+
+    
 
     return (
         <div className='container d-flex flex-column align-items-center justify-content-center vh-100'>
@@ -27,11 +31,20 @@ function WelcomeComponent() {
                         : 
                         <>
                         <JoinButton onJoinClick={handleJoinContainer}/>
-                        <CreateButton />
+                        <CreateButton setRoomId={setRoomId}/>
                         </>
                     }
                 </div>
             </div>
+            
+            {
+                roomId && !joinContainer &&
+                <div className='d-flex flex-column my-2 gap-3 align-items-center'>
+                    <h3 className='text-bg-dark'>Your room ID : {roomId}</h3>
+                    <ContinueButton />
+                </div>
+            }
+            
         </div>
     )
 }

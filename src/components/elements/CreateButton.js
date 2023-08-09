@@ -1,14 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 
-function CreateButton() {
-
-    const [room, setRoom] = useState('')
+function CreateButton({setRoomId}) {
 
     const handleCreateBtn = () => {
         fetch('/create')
         .then(responese => responese.json())
         .then(data => {
-            setRoom(data)
+            setRoomId(data)
+            //roomId = room
         })
         .catch((error) => {
             console.error('Error while creating room:', error)
@@ -17,9 +16,11 @@ function CreateButton() {
     }
 
     // Log the room value after it has been updated
-    useEffect(() => {
-        console.log(room)
-    }, [room])
+    //useEffect(() => {
+        //roomId = room
+        //console.log(`Room state : ${room}`)
+        //console.log(`Room Id: ${roomId}`)
+    //}, [room])
 
     return (
         <button className='btn btn-primary' onClick={handleCreateBtn}>Create Meeting</button>
