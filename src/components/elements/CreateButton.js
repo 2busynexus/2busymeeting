@@ -4,22 +4,25 @@ function CreateButton() {
 
     const [room, setRoom] = useState('')
 
-    useEffect(() => {
+    const handleCreateBtn = () => {
         fetch('/create')
         .then(responese => responese.json())
-        .then(data => setRoom(data))
+        .then(data => {
+            setRoom(data)
+        })
         .catch((error) => {
             console.error('Error while creating room:', error)
-          })
-    })
-
-    const handleCreate = () => {
+            })
         //alert("CREATE")
-        console.log(room)
     }
 
+    // Log the room value after it has been updated
+    useEffect(() => {
+        console.log(room)
+    }, [room])
+
     return (
-        <button className='btn btn-primary' onClick={handleCreate}>Create Meeting</button>
+        <button className='btn btn-primary' onClick={handleCreateBtn}>Create Meeting</button>
     )
 
 }

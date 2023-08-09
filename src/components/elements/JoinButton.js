@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
 
-function JoinButton() {
+function JoinButton({onJoinClick}) {
 
     const [room, setRoom] = useState('')
+    
 
     useEffect(() => {
         fetch('/join')
@@ -13,13 +14,18 @@ function JoinButton() {
           })
     })
 
-    const handleJoin = () => {
+    const handleJoinBtn = () => {
         //alert("JOIN")
         console.log(room)
+        onJoinClick()
     }
 
+    
+
     return (
-        <button className='btn btn-primary' onClick={handleJoin}>Join Meeting</button>
+        <>
+        <button className='btn btn-primary' onClick={handleJoinBtn}>Join Meeting</button>
+        </>
     )
 
 }
