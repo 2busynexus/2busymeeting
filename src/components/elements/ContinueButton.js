@@ -1,8 +1,13 @@
+import { useNavigate } from "react-router-dom"
 
-function ContinueButton() {
+function ContinueButton(props) {
+
+    const navigate = useNavigate()
 
     const handleContinueBtn = () => {
-        console.log('You are now entering your meeting')
+        //console.log(roomId)
+        //console.log('You are now entering your meeting')
+        navigate(`/meeting/${props.roomId}`)
     }
 
     return (

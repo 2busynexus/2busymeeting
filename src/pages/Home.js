@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import JoinButton from './elements/JoinButton'
-import CreateButton from './elements/CreateButton'
-import JoinForm from './elements/JoinForm'
-import ContinueButton from './elements/ContinueButton'
+import JoinMeetingButton from '../components/elements/JoinMeetingButton'
+import CreateMeetingButton from '../components/elements/CreateMeetingButton'
+import JoinForm from '../components/elements/JoinForm'
+import ContinueButton from '../components/elements/ContinueButton'
 
-function WelcomeComponent() {
+function Home() {
 
     const [joinContainer, setJoinContainer] = useState(false)
     const [roomId, setRoomId] = useState('')
@@ -30,8 +30,8 @@ function WelcomeComponent() {
                         <JoinForm onBackClick={handleJoinContainer}/> 
                         : 
                         <>
-                        <JoinButton onJoinClick={handleJoinContainer}/>
-                        <CreateButton setRoomId={setRoomId}/>
+                        <JoinMeetingButton onJoinClick={handleJoinContainer}/>
+                        <CreateMeetingButton setRoomId={setRoomId}/>
                         </>
                     }
                 </div>
@@ -41,7 +41,7 @@ function WelcomeComponent() {
                 roomId && !joinContainer &&
                 <div className='d-flex flex-column my-2 gap-3 align-items-center'>
                     <h3 className='text-bg-dark'>Your room ID : {roomId}</h3>
-                    <ContinueButton />
+                    <ContinueButton roomId = {roomId}/>
                 </div>
             }
             
@@ -49,4 +49,4 @@ function WelcomeComponent() {
     )
 }
 
-export default WelcomeComponent
+export default Home

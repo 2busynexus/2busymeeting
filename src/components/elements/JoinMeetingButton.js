@@ -1,6 +1,6 @@
 import React from "react";
 
-function JoinButton({onJoinClick}) {
+function JoinMeetingButton({onJoinClick}) {
 
 
     
@@ -20,4 +20,4 @@ function JoinButton({onJoinClick}) {
 
 }
 
-export default JoinButton
+export default JoinMeetingButton

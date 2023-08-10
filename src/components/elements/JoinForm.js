@@ -1,8 +1,10 @@
 import { useState } from "react"
+import { useNavigate } from 'react-router-dom'
 
 
 function JoinForm({onBackClick}) {
 
+    const navigate = useNavigate()
     const [name, setName] = useState('')
     const [roomId, setRoomId] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
@@ -27,7 +29,9 @@ function JoinForm({onBackClick}) {
                 })
             })
             const data = await response.json();
-            console.log(data);
+            setErrorMessage(data)
+            navigate(`/meeting/${roomId}`)
+            //timeout 5s and redirecting to meeting room
         } catch (error) {
             console.error('Error joining room:', error)
         }

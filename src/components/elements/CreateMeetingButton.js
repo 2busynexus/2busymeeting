@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
-function CreateButton({setRoomId}) {
+function CreateMeetingButton({setRoomId}) {
+
+    const [activeBtn, setActiveBtn] = useState(true)
+    const [btnClass, setBtnClass] = useState('btn-primary')
 
     const handleCreateBtn = () => {
         fetch('/create')
@@ -13,7 +16,9 @@ function CreateButton({setRoomId}) {
             console.error('Error while creating room:', error)
             })
         //alert("CREATE")
-    }
+        setActiveBtn(false)
+        setBtnClass('btn-outline-primary')
+    }    
 
     // Log the room value after it has been updated
     //useEffect(() => {
@@ -23,9 +28,14 @@ function CreateButton({setRoomId}) {
     //}, [room])
 
     return (
-        <button className='btn btn-primary' onClick={handleCreateBtn}>Create Meeting</button>
+        <button 
+            className={`btn ${btnClass}`} 
+            onClick={handleCreateBtn} 
+            disabled={!activeBtn}
+            >Create Meeting
+        </button>
     )
 
 }
 
-export default CreateButton
+export default CreateMeetingButton
