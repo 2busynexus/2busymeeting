@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import LeaveMeetingButton from "../components/elements/LeaveMeetingButton"
+import fetchRoomState from "../components/functions/fetchRoomState"
 
 function Meeting() {
 
@@ -8,18 +10,20 @@ function Meeting() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch('/check_state', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                roomId: roomId
-            })
-        })
-        .then(response => response.json())
-        .then(data => setRoomIdServer(data))
-    }, [roomId]) // Empty dependency array, runs only once
+        //function for checking if the user is closing the tab/window
+        const handleBeforeUnload = () => {
+            fetch("/leave_room", { method: "POST" });
+          };
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        //function for checking if the room is still active on the server
+        fetchRoomState(roomId).then(data => setRoomIdServer(data))
+        const checkInterval = setInterval(() => {
+            fetchRoomState(roomId).then(data => setRoomIdServer(data))
+        }, 30000);
+        return () => {
+            clearInterval(checkInterval)
+        }
+    }, [roomId])
 
     const handleBackBtn = () => {
         navigate('/')
@@ -31,6 +35,7 @@ function Meeting() {
                 <>
                     <h1>MEETING PAGE</h1>
                     <h3>{roomId}</h3>
+                    <LeaveMeetingButton />
                 </>
             : <div className="d-flex flex-column align-items-center gap-5">
                 <h1>Room doesn't exist</h1>
