@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import LeaveMeetingButton from "../components/elements/LeaveMeetingButton"
 import fetchRoomState from "../components/functions/fetchRoomState"
+import MeetingComponent from "../components/MeetingComponent"
+
 
 function Meeting() {
 
@@ -30,18 +32,27 @@ function Meeting() {
     }
 
     return (
-        <div className='d-flex flex-column align-items-center justify-content-center vh-100 text-bg-dark'>
-            { roomIdServer === roomId ? 
-                <>
-                    <h1>MEETING PAGE</h1>
-                    <h3>{roomId}</h3>
-                    <LeaveMeetingButton />
-                </>
-            : <div className="d-flex flex-column align-items-center gap-5">
-                <h1>Room doesn't exist</h1>
-                <button className="btn btn-primary" onClick={handleBackBtn}>Back</button>
+        <>
+        { roomIdServer === roomId ? 
+                <div className='d-flex flex-column py-5 align-items-center justify-content-center text-bg-dark vh-100'>
+                        <>
+                            <h1>Welcome to your meeting page</h1>
+                            <h3>The ID for this room is {roomId}</h3>
+                            <MeetingComponent/>
+                            <LeaveMeetingButton />
+
+                        </>
+                </div>
+                
+            : 
+            <div className="d-flex align-items-center justify-content-center text-bg-dark vh-100">
+                <div className="d-flex flex-column align-items-center gap-5">
+                    <h1>Room doesn't exist</h1>
+                    <button className="btn btn-primary" onClick={handleBackBtn}>Back</button>
+                </div>
             </div> }
-        </div>
+        </>
+        
     );
 }
 
