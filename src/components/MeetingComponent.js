@@ -2,15 +2,15 @@ import React, { useEffect, useRef } from 'react';
 
 function MeetingComponent() {
   const localVideoRef = useRef(null);
-  let localStream = null;
+  const localStreamRef = useRef(null); // Use useRef for the mutable value
 
   useEffect(() => {
     async function getMedia() {
       try {
-        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        localStreamRef.current = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
 
         if (localVideoRef.current) {
-          localVideoRef.current.srcObject = localStream;
+          localVideoRef.current.srcObject = localStreamRef.current;
         }
       } catch (error) {
         console.error('Error accessing media:', error);
@@ -18,7 +18,17 @@ function MeetingComponent() {
     }
 
     getMedia();
+  }, []);
 
+  useEffect(() => {
+    // Cleanup function
+    return () => {
+      if (localStreamRef.current) {
+        localStreamRef.current.getTracks().forEach(track => {
+          track.stop();
+        });
+      }
+    };
   }, []);
 
   return (
